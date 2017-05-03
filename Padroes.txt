@@ -1,0 +1,7 @@
+->tipo _NomeVar == esse tipo de declaração sera utilizado para variaveis de pinos.
+->metodos com a 1° letra maiuscula == são sets e gets da biblioteca. Devem sempre ser do tipo publica.
+->metodos com _no inicio == sao utilizados apenas dentro da classe a fim de resolver determinados problemas. Devem sempre ser do tipo Protected
+->pinos sao sempre uint8_t.
+
+->Os iniciadores de componentes devem ter o seguinte formato: iniciaNomeDoSensor(); nao deve conter parametros.
+->qualquer subBiblioteca deve ser nomeada: Guarateca_funçãoDaBiblioteca.h/.cpp

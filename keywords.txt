@@ -1,0 +1,80 @@
+Buzzer		    KEYWORD1
+iniciaBuzzer	KEYWORD2
+beepSimples	    KEYWORD2
+beep		    KEYWORD2
+marcha		    KEYWORD2
+mario		    KEYWORD2
+
+MotorShield		        KEYWORD1
+iniciaMotorShield	    KEYWORD2
+sentido1		        KEYWORD2
+sentido2		        KEYWORD2
+trava			        KEYWORD2
+controleDeCorrente	    KEYWORD2
+identificadorDeComando	KEYWORD2
+converteComando		    KEYWORD2
+
+PonteH			    KEYWORD1
+iniciaPonteH		KEYWORD2
+sentido1		    KEYWORD2
+sentido2		    KEYWORD2
+trava			    KEYWORD2
+controleDeCorrente	KEYWORD2
+
+SensorAgua		    KEYWORD1
+iniciaSensorAgua	KEYWORD2
+leitura			    KEYWORD2
+
+SensorCor	    KEYWORD1
+iniciaSensorCor	KEYWORD2
+filtroVermelho	KEYWORD2
+filtroVerde	    KEYWORD2
+filtroAzul	    KEYWORD2
+filtroNulo	    KEYWORD2
+frequencia	    KEYWORD2
+leitura
+
+SensorDHT		    KEYWORD1
+leitura_temperatura	KEYWORD2
+leitura_umidade		KEYWORD2
+
+SensorGiroscopioAcelerometro		KEYWORD1
+iniciaSensorGiroscopioAcelerometro	KEYWORD2
+AcelerometroX				        KEYWORD2
+AcelerometroY				        KEYWORD2
+AcelerometroZ				        KEYWORD2
+GiroscopioX				            KEYWORD2
+GiroscopioY				            KEYWORD2
+GiroscopioZ				            KEYWORD2
+temperatura				            KEYWORD2
+_ObtemDados				            KEYWORD2
+
+SensorRefletancia	    KEYWORD1
+iniciaSensorRefletancia	KEYWORD2
+leitura			        KEYWORD2
+
+SensorUltrassonico		    KEYWORD1
+iniciaSensorUltrassonico	KEYWORD2
+leitura				        KEYWORD2
+
+Servo		KEYWORD1
+vaPara		KEYWORD2
+direita		KEYWORD2
+esquerda	KEYWORD2
+
+TelaCristalLiquido		    KEYWORD1
+TelaCristalLiquido_12C      KEYWORD1
+iniciaTelaCristalLiquido	KEYWORD2
+escreveTela			        KEYWORD2
+limpaTela			        KEYWORD2
+vaParaHome			        KEYWORD2
+vaParaDireita			    KEYWORD2
+vaParaEsquerda			    KEYWORD2
+posicaoCursor			    KEYWORD2
+estadoLigado			    KEYWORD2
+estadoDesligado			    KEYWORD2
+pisca				        KEYWORD2
+paraPiscar			        KEYWORD2
+pisca_cursor			    KEYWORD2
+paraPiscar_cursor			KEYWORD2
+luzFundo			        KEYWORD2

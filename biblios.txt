@@ -1,0 +1,12 @@
+PonteH	Control_PonteH
+MotorShield	Control_MotorShield
+Servo	Control_Servo
+SensorRefletancia	Control_SensorRefletancia
+SensorCor	Control_SensorCor
+SensorUltrassonico	Control_SensorUltrassonico
+SensorGiroscopioAcelerometro	Control_SensorGiroscopioAcelerometro
+SensorAgua	Control_SensorAgua
+SensorDHT	Control_SensorDHT
+Buzzer	Control_Buzzer
+Bluetooth	Control_bluetooth
+-->>FIM_________________________

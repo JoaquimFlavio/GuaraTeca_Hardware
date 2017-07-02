@@ -1,11 +1,11 @@
-Buzzer		    KEYWORD1
+Buzzer	KEYWORD1	Buzzer
 iniciaBuzzer	KEYWORD2
 beepSimples	    KEYWORD2
 beep		    KEYWORD2
 marcha		    KEYWORD2
 mario		    KEYWORD2
 
-MotorShield		        KEYWORD1
+MotorShield	KEYWORD1	MotorShield
 iniciaMotorShield	    KEYWORD2
 sentido1		        KEYWORD2
 sentido2		        KEYWORD2
@@ -14,56 +14,52 @@ controleDeCorrente	    KEYWORD2
 identificadorDeComando	KEYWORD2
 converteComando		    KEYWORD2
 
-PonteH			    KEYWORD1
+PonteH	KEYWORD1	PonteH
 iniciaPonteH		KEYWORD2
 sentido1		    KEYWORD2
 sentido2		    KEYWORD2
 trava			    KEYWORD2
 controleDeCorrente	KEYWORD2
 
-SensorAgua		    KEYWORD1
+Botao	KEYWORD1	Botao
+iniciaBotao		KEYWORD2
+estado		    KEYWORD2
+
+SensorAgua	KEYWORD1	SensorAgua
 iniciaSensorAgua	KEYWORD2
 leitura			    KEYWORD2
 
-SensorCor	    KEYWORD1
-iniciaSensorCor	KEYWORD2
+TCS230	KEYWORD1	TCS230
+iniciaTCS230	KEYWORD2
 filtroVermelho	KEYWORD2
 filtroVerde	    KEYWORD2
 filtroAzul	    KEYWORD2
 filtroNulo	    KEYWORD2
 frequencia	    KEYWORD2
-leitura
+leitura KEYWORD2
 
-SensorDHT		    KEYWORD1
+SensorDHT	KEYWORD1	SensorDHT
 leitura_temperatura	KEYWORD2
 leitura_umidade		KEYWORD2
 
-SensorGiroscopioAcelerometro		KEYWORD1
-iniciaSensorGiroscopioAcelerometro	KEYWORD2
-AcelerometroX				        KEYWORD2
-AcelerometroY				        KEYWORD2
-AcelerometroZ				        KEYWORD2
-GiroscopioX				            KEYWORD2
-GiroscopioY				            KEYWORD2
-GiroscopioZ				            KEYWORD2
-temperatura				            KEYWORD2
-_ObtemDados				            KEYWORD2
+GY521_MPU6050	KEYWORD1	GY521_MPU6050
+iniciaSensorGY521_MPU6050	KEYWORD2
+ObtemDados		KEYWORD2
 
-SensorRefletancia	    KEYWORD1
+SensorRefletancia	KEYWORD1	SensorRefletancia
 iniciaSensorRefletancia	KEYWORD2
 leitura			        KEYWORD2
 
-SensorUltrassonico		    KEYWORD1
-iniciaSensorUltrassonico	KEYWORD2
-leitura				        KEYWORD2
+HCSR04	KEYWORD1	HCSR04
+iniciaHCSR04	KEYWORD2
+leitura KEYWORD2
 
-Servo		KEYWORD1
+Servo	KEYWORD1	Servo
 vaPara		KEYWORD2
 direita		KEYWORD2
 esquerda	KEYWORD2
 
-TelaCristalLiquido		    KEYWORD1
-TelaCristalLiquido_12C      KEYWORD1
+TelaCristalLiquido	KEYWORD1	TelaCristalLiquido
 iniciaTelaCristalLiquido	KEYWORD2
 escreveTela			        KEYWORD2
 limpaTela			        KEYWORD2

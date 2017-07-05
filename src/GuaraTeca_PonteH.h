@@ -1,19 +1,19 @@
-//Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
-//Fonseca Gomes, Marcos Dias da Conceição e Diego de Castro Rodrigues---*
+//Copyright 2017 Joaquim Flï¿½vio Almeida Quirino Gomes, Dï¿½mis Carlos ----*
+//Fonseca Gomes, Marcos Dias da Conceiï¿½ï¿½o e Diego de Castro Rodrigues---*
 //----------------------------------------------------------------------*
-//Este arquivo é parte da Biblioteca de Funções GuaráTeca---------------*
-//A GuaráTeca é um software livre; você pode redistribuí-lo e/ou--------* 
-//modificá-lo sob os termos da Licença Pública Geral GNU como publicada-*
-//pela Fundação do Software Livre (FSF); na versão 3 da Licença,--------*
-//ou (a seu critério) qualquer versão posterior.------------------------*
+//Este arquivo ï¿½ parte da Biblioteca de Funï¿½ï¿½es Guarï¿½Teca---------------*
+//A Guarï¿½Teca ï¿½ um software livre; vocï¿½ pode redistribuï¿½-lo e/ou--------* 
+//modificï¿½-lo sob os termos da Licenï¿½a Pï¿½blica Geral GNU como publicada-*
+//pela Fundaï¿½ï¿½o do Software Livre (FSF); na versï¿½o 3 da Licenï¿½a,--------*
+//ou (a seu critï¿½rio) qualquer versï¿½o posterior.------------------------*
 //
-//Este programa é distribuído na esperança de que possa ser útil,-------* 
-//mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO-----*
-//a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a-----------------*
-//Licença Pública Geral GNU para mais detalhes.-------------------------*
+//Este programa ï¿½ distribuï¿½do na esperanï¿½a de que possa ser ï¿½til,-------* 
+//mas SEM NENHUMA GARANTIA; sem uma garantia implï¿½cita de ADEQUAï¿½ï¿½O-----*
+//a qualquer MERCADO ou APLICAï¿½ï¿½O EM PARTICULAR. Veja a-----------------*
+//Licenï¿½a Pï¿½blica Geral GNU para mais detalhes.-------------------------*
 //
-//Você deve ter recebido uma cópia da Licença Pública Geral GNU junto---*
-//com este programa. Se não, veja <http://www.gnu.org/licenses/>--------*
+//Vocï¿½ deve ter recebido uma cï¿½pia da Licenï¿½a Pï¿½blica Geral GNU junto---*
+//com este programa. Se nï¿½o, veja <http://www.gnu.org/licenses/>--------*
 
 #ifndef GuaraTeca_PonteH_H 
 #define GuaraTeca_PonteH_H
@@ -30,5 +30,6 @@ class PonteH{
         void sentido2(uint8_t P1, uint8_t P2);//metodo para ativar o motor DC no sentido 2, enviando o pulso positivo para o P2 e o terra para o P1.
         void trava(uint8_t P1, uint8_t P2);//metodo para travar o motor, enviando pulso positivo para ambas as portas.
         void controleDeCorrente(uint8_t P1, float corrente);//metodo de controle de corrente passada para o pino de controle da ponteH.
+        void desliga(uint8_t P1, uint8_t P2);//metodo para desligar os motores.
 };
 #endif

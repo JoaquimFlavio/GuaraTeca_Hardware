@@ -99,6 +99,27 @@ void MotorShield::trava(uint8_t conexao){
     }
     converteComando(identificadorDeComando());//atualiza o estado dos motores da motor shield.
 }
+void MotorShield::desliga(uint8_t conexao){
+    switch(conexao){
+        case 1:
+            comando[2] = 0;
+            comando[3] = 0;
+        break;
+        case 2:
+            comando[1] = 0;
+            comando[4] = 0;
+        break;
+        case 3:
+            comando[5] = 0;
+            comando[7] = 0;
+        break;
+        case 4:
+            comando[0] = 0;
+            comando[6] = 0;
+        break;
+    }
+    converteComando(identificadorDeComando());//atualiza o estado dos motores da motor shield.
+}
 void MotorShield::controleDeCorrente(uint8_t conexao, unsigned char corrente){
     switch(conexao){
         case 1:

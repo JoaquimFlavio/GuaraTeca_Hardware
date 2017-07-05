@@ -42,3 +42,7 @@ void PonteH::trava(uint8_t P1, uint8_t P2){
 void PonteH::controleDeCorrente(uint8_t P1, float corrente){
     analogWrite(P1, corrente);//define a corrente que saira para o motor; Conecte em um pino PWM.
 }
+void PonteH::desliga(uint8_t P1, uint8_t P2){
+    digitalWrite(P1, LOW);//define o P1 como desativado.
+    digitalWrite(P2, LOW);//define o P2 como desativado.
+}

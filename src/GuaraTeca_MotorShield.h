@@ -1,4 +1,4 @@
-﻿//Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
+//Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
 //Fonseca Gomes, Marcos Dias da Conceição e Diego de Castro Rodrigues---*
 //----------------------------------------------------------------------*
 //Este arquivo é parte da Biblioteca de Funções GuaráTeca---------------*
@@ -48,6 +48,7 @@ class MotorShield{
         void sentido1(uint8_t conexao);//metodo para ativar o motor DC no sentido 1, enviando o pulso positivo para o P2 e o terra para o P1.
         void sentido2(uint8_t conexao);//metodo para ativar o motor DC no sentido 1, enviando o pulso positivo para o P1 e o terra para o P2.
         void trava(uint8_t conexao);//metodo para travar o motor, enviando pulso positivo para ambas as portas.
+        void desliga(uint8_t conexao);
         void controleDeCorrente(uint8_t conexao, unsigned char corrente);//metodo de controle de corrente passada para o pino de controle da MotorShield.
     protected:
         int identificadorDeComando();//funcao para converter as cadeias binarias para a funcao "converteComando".

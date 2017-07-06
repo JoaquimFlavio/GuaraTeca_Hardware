@@ -1,6 +1,6 @@
 ## Sobre a GuaraTeca_Hardware
 
-A GuaraTeca_Hardware é uma sub-biblioteca da biblioteca [Guarateca](https://github.com/JoaquimFlavio/GuaraTeca), focada na programação de estruturas eletronicas e roboticas em nivel mediano. Atraves da utilização de funçoes simples e em portugues essa biblioteca permite um maior aproveitamento do hardware do Arduino em contraposição à uma experiência de programação em alto nivel.
+ola A GuaraTeca_Hardware é uma sub-biblioteca da biblioteca [Guarateca](https://github.com/JoaquimFlavio/GuaraTeca), focada na programação de estruturas eletronicas e roboticas em nivel mediano. Atraves da utilização de funçoes simples e em portugues essa biblioteca permite um maior aproveitamento do hardware do Arduino em contraposição à uma experiência de programação em alto nivel.
 
 ## Instalação
 

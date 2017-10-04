@@ -1,8 +1,8 @@
 //Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
 //Fonseca Gomes, Marcos Dias da Conceição e Diego de Castro Rodrigues---*
 //----------------------------------------------------------------------*
-//Este arquivo é parte da Biblioteca de Funções GuaráTeca---------------*
-//A GuaráTeca é um software livre; você pode redistribuí-lo e/ou--------* 
+//Este arquivo é parte da Biblioteca de Funções Guarateca---------------*
+//A Guarateca é um software livre; você pode redistribuí-lo e/ou--------* 
 //modificá-lo sob os termos da Licença Pública Geral GNU como publicada-*
 //pela Fundação do Software Livre (FSF); na versão 3 da Licença,--------*
 //ou (a seu critério) qualquer versão posterior.------------------------*

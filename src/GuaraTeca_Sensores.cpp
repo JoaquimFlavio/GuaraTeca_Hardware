@@ -1,8 +1,8 @@
 //Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
 //Fonseca Gomes, Marcos Dias da Conceição e Diego de Castro Rodrigues---*
 //----------------------------------------------------------------------*
-//Este arquivo é parte da Biblioteca de Funções GuaráTeca---------------*
-//A GuaráTeca é um software livre; você pode redistribuí-lo e/ou--------* 
+//Este arquivo é parte da Biblioteca de Funções Guarateca---------------*
+//A Guarateca é um software livre; você pode redistribuí-lo e/ou--------* 
 //modificá-lo sob os termos da Licença Pública Geral GNU como publicada-*
 //pela Fundação do Software Livre (FSF); na versão 3 da Licença,--------*
 //ou (a seu critério) qualquer versão posterior.------------------------*
@@ -17,22 +17,14 @@
 
 #include <GuaraTeca_Hardware.h>
 #include <Wire.h>
+#include <math.h>
 
 //Sensor Agua Funcoes________________________________________
-void inicia_SensorAgua(uint8_t pinoA, uint8_t pinoD){
-    if(pinoD == 0){
-        pinMode(pinoA, INPUT);
-    }else{
-        pinMode(pinoA, INPUT);
-        pinMode(pinoD, INPUT);
-    }
+void inicia_SensorAgua(uint8_t pino){
+    pinMode(pino, INPUT);
 }
-short int leitura_SensorAgua(uint8_t pinoA, uint8_t pinoD){
-    if(pinoD == 0){
-        return analogRead(pinoA);
-    }else{
-        return digitalRead(pinoD);
-    }
+short int leitura_SensorAgua(uint8_t pino){
+    return analogRead(pino);
 }
 //Sensor Refletancia Funcoes________________________________________
 void inicia_SensorRefletancia(uint8_t pino){
@@ -50,21 +42,24 @@ void inicia_TCS230(uint8_t out, uint8_t S0, uint8_t S1, uint8_t S2, uint8_t S3){
     pinMode(S3, OUTPUT);
     pinMode(out, INPUT);
 }
-void filtroVermelho_TCS230(uint8_t S2, uint8_t S3){
-    digitalWrite(S2, LOW);
-    digitalWrite(S3, LOW);
-}
-void filtroVerde_TCS230(uint8_t S2, uint8_t S3){
-    digitalWrite(S2, HIGH);
-    digitalWrite(S3, HIGH);
-}
-void filtroAzul_TCS230(uint8_t S2, uint8_t S3){
-    digitalWrite(S2, LOW);
-    digitalWrite(S3, HIGH);
-}
-void filtroNulo_TCS230(uint8_t S2, uint8_t S3){
-    digitalWrite(S2, HIGH);
-    digitalWrite(S3, LOW);
+void filtroVermelho_TCS230(uint8_t S2, uint8_t S3, char C){
+    switch(C){
+        case 'R'://Filtro para cores vermelhas.
+            digitalWrite(S2, LOW);
+            digitalWrite(S3, LOW);
+        break;
+        case 'G'://Filtro para cores verdes.
+            digitalWrite(S2, HIGH);
+            digitalWrite(S3, HIGH);
+        break;
+        case 'B'://Filtro para cores azuis.
+            digitalWrite(S2, LOW);
+            digitalWrite(S3, HIGH);
+        break;
+        default://Filtro para desligar todos os filtros.
+            digitalWrite(S2, HIGH);
+            digitalWrite(S3, LOW);
+    }
 }
 void frequencia_TCS230(uint8_t S0, uint8_t S1, uint8_t OPT){
     switch(OPT){
@@ -89,19 +84,23 @@ int leitura_TCS230(uint8_t out){
     return pulseIn(out, LOW);
 }
 
-//HCSR04_________________________________________________________________
-void inicia_HCSR04(uint8_t Tp, uint8_t Ep){
-    pinMode(Tp, OUTPUT);
-    pinMode(Ep, INPUT);
+//HCSR04______________________________________________________________________________________
+void inicia_HCSR04(uint8_t tp, uint8_t ep){
+    pinMode(tp, OUTPUT);
+    pinMode(ep, INPUT);
 }
-float leitura_HCSR04(uint8_t Tp, uint8_t Ep){
+float leitura_HCSR04(uint8_t tp, uint8_t ep){
     static bool next_bug;//variavel auxiliar para corigir erro de hardware do sensor.
-    digitalWrite(Tp, LOW);
+    
+    //Emissão do pulso para realizar a leitura da distancia.
+    digitalWrite(tp, LOW);
     delayMicroseconds(2);
-    digitalWrite(Tp, HIGH);
+    digitalWrite(tp, HIGH);
     delayMicroseconds(10);
-    digitalWrite(Tp, LOW);
-    long microsec = pulseIn(Ep, HIGH);
+    digitalWrite(tp, LOW);
+    
+    //Leitura do retorno do pulso.
+    long microsec = pulseIn(ep, HIGH);
     
     if(next_bug == true){
         return 255;
@@ -115,14 +114,40 @@ float leitura_HCSR04(uint8_t Tp, uint8_t Ep){
         return (microsec / 27.6233 / 2.0);
     }
 }
-//Botao Funcoes_______________________________________________________________
-void inicia_Botao(uint8_t Pin){
-    pinMode(Pin, INPUT_PULLUP);
+
+//TTC104___________________________________________________________________________________________________
+void inicia_TTC104(uint8_t pin){
+    pinMode(pin, INPUT);
 }
-int estado_Botao(uint8_t Pin){
-    return digitalRead(Pin);
+
+float leitura_TTC104_celcius(uint8_t pin){
+    float T, logR2;
+    float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
+    
+    //logR2 = long(10000 * (1023.0 / (float)analogRead(pin) - 1.0));
+    //T = (1.0 / (c1 + c2*logR2 + c3*pow(logR2, 3)));
+    
+    //return T - 273.15;
 }
-//Giroscopio Funcoes_______________________________________________________________
+
+float leitura_TTC104_fahrenheit(uint8_t pin){
+    float T, logR2;
+    float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
+    
+    //logR2 = long(10000 * (1023.0 / (float)analogRead(pin) - 1.0));
+    //T = (1.0 / (c1 + c2*logR2 + c3*pow(logR2, 3)));
+    
+    //return ((T - 273.15) * 9.0)/ 5.0 + 32.0; 
+}
+
+//Botao Funcoes________________________________________________________________________________
+void inicia_Botao(uint8_t pin){
+    pinMode(pin, INPUT_PULLUP);
+}
+int estado_Botao(uint8_t pin){
+    return digitalRead(pin);
+}
+//Giroscopio/Acelerometro Funcoes_______________________________________________________________
 void inicia_GY521_MPU6050(char endereco){
     Wire.begin();
     Wire.beginTransmission(endereco);

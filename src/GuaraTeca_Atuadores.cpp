@@ -1,8 +1,8 @@
 //Copyright 2017 Joaquim Fl�vio Almeida Quirino Gomes, D�mis Carlos ----*
 //Fonseca Gomes, Marcos Dias da Concei��o e Diego de Castro Rodrigues---*
 //----------------------------------------------------------------------*
-//Este arquivo � parte da Biblioteca de Fun��es Guar�Teca---------------*
-//A Guar�Teca � um software livre; voc� pode redistribu�-lo e/ou--------*
+//Este arquivo � parte da Biblioteca de Fun��es Guarateca---------------*
+//A Guarateca � um software livre; voc� pode redistribu�-lo e/ou--------*
 //modific�-lo sob os termos da Licen�a P�blica Geral GNU como publicada-*
 //pela Funda��o do Software Livre (FSF); na vers�o 3 da Licen�a,--------*
 //ou (a seu crit�rio) qualquer vers�o posterior.------------------------*
@@ -52,5 +52,12 @@ void inicia_Rele(uint8_t pino){
     pinMode(pino, OUTPUT);
 }
 void estado_Rele(uint8_t pino, bool estado){
-    digitalWrite(pino, estado ? HIGH : LOW);
+    if(estado){
+        pinMode(pino, OUTPUT);
+        digitalWrite(pino, HIGH);
+    }else{
+        digitalWrite(pino, LOW);
+        pinMode(pino, INPUT);
+    }
+    //digitalWrite(pino, estado ? HIGH : LOW);
 }

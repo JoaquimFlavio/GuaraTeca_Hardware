@@ -52,12 +52,12 @@ void inicia_Rele(uint8_t pino){
     pinMode(pino, OUTPUT);
 }
 void estado_Rele(uint8_t pino, bool estado){
-    if(estado){
+    /*if(estado){
         pinMode(pino, OUTPUT);
         digitalWrite(pino, HIGH);
     }else{
         digitalWrite(pino, LOW);
         pinMode(pino, INPUT);
-    }
-    //digitalWrite(pino, estado ? HIGH : LOW);
+    }*/
+    digitalWrite(pino, estado ? HIGH : LOW);
 }

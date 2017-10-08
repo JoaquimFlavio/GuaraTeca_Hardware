@@ -42,7 +42,7 @@ void inicia_TCS230(uint8_t out, uint8_t S0, uint8_t S1, uint8_t S2, uint8_t S3){
     pinMode(S3, OUTPUT);
     pinMode(out, INPUT);
 }
-void filtroVermelho_TCS230(uint8_t S2, uint8_t S3, char C){
+void filtroCor_TCS230(uint8_t S2, uint8_t S3, char C){
     switch(C){
         case 'R'://Filtro para cores vermelhas.
             digitalWrite(S2, LOW);

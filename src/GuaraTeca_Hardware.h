@@ -45,7 +45,7 @@ void obtemDados_GY521_MPU6050(int array[], char endereco);//metodo interno para 
            1  |  1 --> 100%                 |          1  |  1 --> Verde_______Green
 */
 void inicia_TCS230(uint8_t out, uint8_t S0, uint8_t S1, uint8_t S2, uint8_t S3);//metodo para preparar o hardware para os devidos comandos
-void filtro_TCS230(uint8_t S2, uint8_t S3, char C);//metodo para ativar os filtros de cores do sensor.
+void filtroCor_TCS230(uint8_t S2, uint8_t S3, char C);//metodo para ativar os filtros de cores do sensor.
 void frequencia_TCS230(uint8_t S0, uint8_t S1, uint8_t OPT);//define a frequencia de operação do pino.
 int leitura_TCS230(uint8_t out);//metodo para retornar o valor lido pelo sensor.
 

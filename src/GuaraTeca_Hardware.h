@@ -49,12 +49,13 @@ void filtroCor_TCS230(uint8_t S2, uint8_t S3, char C);//metodo para ativar os fi
 void frequencia_TCS230(uint8_t S0, uint8_t S1, uint8_t OPT);//define a frequencia de operação do pino.
 int leitura_TCS230(uint8_t out);//metodo para retornar o valor lido pelo sensor.
 
-void inicia_HCSR04(uint8_t tp, uint8_t ep);//metodo para preparar o hardware para os devidos comandos
-float leitura_HCSR04(uint8_t tp, uint8_t ep);//metodo para retornar o valor lido pelo sensor.
+void inicia_Ultrassonico(uint8_t tp, uint8_t ep);//metodo para preparar o hardware para os devidos comandos
+void inicia_Ultrassonico(uint8_t pino);//metodo para preparar o hardware para os devidos comandos
+int leitura_Ultrassonico(uint8_t tp, uint8_t ep, unsigned int timeOut);//metodo para retornar o valor lido pelo sensor.
+int leitura_Ultrassonico(uint8_t pino, unsigned int timeOut);//metodo para retornar o valor lido pelo sensor.
 
 void inicia_TTC104(uint8_t pin);//metodo para preparar o hardware para os devidos comandos
-float leitura_TTC104_celcius(uint8_t pin);//metodo para retornar o valor lido pelo sensor.
-float leitura_TTC104_fahrenheit(uint8_t pin);//metodo para retornar o valor lido pelo sensor.
+float leitura_TTC104(uint8_t pin);//metodo para retornar o valor lido pelo sensor.
 
 void inicia_Botao(uint8_t pin);//metodo para preparar o hardware para os devidos comandos.
 int estado_Botao(uint8_t pin);//metodo para leitura do botao.

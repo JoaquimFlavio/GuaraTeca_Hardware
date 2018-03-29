@@ -121,11 +121,23 @@ void inicia_TTC104(uint8_t pin){
 }
 
 float leitura_TTC104(uint8_t pin){
-    float T, logR2;
+/*    float T, logR2;
     float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
     
     logR2 = long(10000 * (1023.0 / (float)analogRead(pin) - 1.0));
     T = (1.0 / (c1 + c2*logR2 + c3*pow(logR2, 3)));
+    
+    return T - 273.15;
+*/
+    int Vo;
+    float R1 = 10000;
+    float logR2, T;
+    float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
+
+    Vo = analogRead(pin);
+    logR2 = log(R1 * (1023.0 / (float)Vo - 1.0)); // R2 = R1 * (Vin/Vout - 1)
+    //logR2 = log(R2);
+    T = (1.0 / (c1 + c2*logR2 + c3*logR2*logR2*logR2));
     
     return T - 273.15;
 }

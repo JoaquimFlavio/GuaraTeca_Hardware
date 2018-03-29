@@ -79,16 +79,18 @@ void trava_PonteH(uint8_t P1, uint8_t P2);//metodo para travar o motor, enviando
 void controleDeCorrente_PonteH(uint8_t P1, float corrente);//metodo de controle de corrente passada para o pino de controle da ponteH.
 void desliga_PonteH(uint8_t P1, uint8_t P2);//metodo para desligar os motores.
 
+
 /*
     Mapeamento do vetor de controle da Classe MotorShield:
-        comando[0] ==> Conexão M4, sentido B || 2(+/-)------->
-        comando[1] ==> Conexão M2, sentido A || 1(-/+)---->  |
-        comando[2] ==> Conexão M1, sentido A || 1(-/+)->  |  |
-        comando[3] ==> Conexão M1, sentido B || 2(+/-)->  |  |
-        comando[4] ==> Conexão M2, sentido B || 2(+/-)---->  |
-        comando[5] ==> Conexão M3, sentido B || 2(+/-)->     |
-        comando[6] ==> Conexão M4, sentido A || 1(-/+)-|----->
-        comando[7] ==> Conexão M3, sentido A || 1(-/+)->
+    
+        comando[7] ==> Conexão M4, sentido A || 1(-/+)------->
+        comando[6] ==> Conexão M2, sentido A || 1(-/+)---->  |
+        comando[5] ==> Conexão M1, sentido A || 2(+/-)->  |  |
+        comando[4] ==> Conexão M1, sentido B || 2(+/-)->  |  |
+        comando[3] ==> Conexão M2, sentido B || 2(+/-)---->  |
+        comando[2] ==> Conexão M3, sentido A || 1(-/+)->     |
+        comando[1] ==> Conexão M4, sentido B || 1(-/+)-|----->
+        comando[0] ==> Conexão M3, sentido B || 2(+/-)->
 */
 
 #define _PMW1       11  //pino de controle de corrente
@@ -111,7 +113,7 @@ class MotorShield{
         void controleDeCorrente(uint8_t conexao, unsigned char corrente);//metodo de controle de corrente passada para o pino de controle da MotorShield.
     protected:
         int identificadorDeComando();//funcao para converter as cadeias binarias para a funcao "converteComando".
-        void converteComando(unsigned char identificador);//converte os comandos em pulsos para as portas determinadas da MotorShield.
+        void converteComando( );//converte os comandos em pulsos para as portas determinadas da MotorShield.
     private:
         int comando[8];//variavel que guarda a cadeia de comandos binarios para a MotorShield.
 };

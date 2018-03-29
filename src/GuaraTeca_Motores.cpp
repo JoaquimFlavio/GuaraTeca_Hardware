@@ -40,86 +40,86 @@ void MotorShield::iniciaMotorShield(){
 void MotorShield::sentido1(uint8_t conexao){
     switch(conexao){
         case 1:
-            comando[2] = 0;
-            comando[3] = 1;
+            comando[5] = 1;
+            comando[4] = 0;
         break;
         case 2:
-            comando[1] = 0;
-            comando[4] = 1;
+            comando[6] = 1;
+            comando[3] = 0;
         break;
         case 3:
-            comando[5] = 1;
-            comando[7] = 0;
+            comando[2] = 1;
+            comando[0] = 0;
         break;
         case 4:
-            comando[0] = 1;
-            comando[6] = 0;
+            comando[7] = 1;
+            comando[1] = 0;
         break;
     }
-    converteComando(identificadorDeComando());//atualiza o estado dos motores da motor shield.
+    converteComando();//atualiza o estado dos motores da motor shield.
 }
 void MotorShield::sentido2(uint8_t conexao){
     switch(conexao){
         case 1:
-            comando[2] = 1;
-            comando[3] = 0;
+            comando[5] = 0;
+            comando[4] = 1;
         break;
         case 2:
-            comando[1] = 1;
-            comando[4] = 0;
+            comando[6] = 0;
+            comando[3] = 1;
         break;
         case 3:
-            comando[5] = 0;
-            comando[7] = 1;
+            comando[2] = 0;
+            comando[0] = 1;
         break;
         case 4:
-            comando[0] = 0;
-            comando[6] = 1;
+            comando[7] = 0;
+            comando[1] = 1;
         break;
     }
-    converteComando(identificadorDeComando());//atualiza o estado dos motores da motor shield.
+    converteComando();//atualiza o estado dos motores da motor shield.
 }
 void MotorShield::trava(uint8_t conexao){
     switch(conexao){
         case 1:
-            comando[2] = 1;
-            comando[3] = 1;
-        break;
-        case 2:
-            comando[1] = 1;
+            comando[5] = 1;
             comando[4] = 1;
         break;
+        case 2:
+            comando[6] = 1;
+            comando[3] = 1;
+        break;
         case 3:
-            comando[5] = 1;
-            comando[7] = 1;
+            comando[2] = 1;
+            comando[0] = 1;
         break;
         case 4:
-            comando[0] = 1;
-            comando[6] = 1;
+            comando[7] = 1;
+            comando[1] = 1;
         break;
     }
-    converteComando(identificadorDeComando());//atualiza o estado dos motores da motor shield.
+    converteComando();//atualiza o estado dos motores da motor shield.
 }
 void MotorShield::desliga(uint8_t conexao){
     switch(conexao){
         case 1:
-            comando[2] = 0;
-            comando[3] = 0;
-        break;
-        case 2:
-            comando[1] = 0;
+            comando[5] = 0;
             comando[4] = 0;
         break;
+        case 2:
+            comando[6] = 0;
+            comando[3] = 0;
+        break;
         case 3:
-            comando[5] = 0;
-            comando[7] = 0;
+            comando[2] = 0;
+            comando[0] = 0;
         break;
         case 4:
-            comando[0] = 0;
-            comando[6] = 0;
+            comando[7] = 0;
+            comando[1] = 0;
         break;
     }
-    converteComando(identificadorDeComando());//atualiza o estado dos motores da motor shield.
+    converteComando();//atualiza o estado dos motores da motor shield.
 }
 void MotorShield::controleDeCorrente(uint8_t conexao, unsigned char corrente){
     switch(conexao){
@@ -137,7 +137,7 @@ void MotorShield::controleDeCorrente(uint8_t conexao, unsigned char corrente){
         break;
     }
 }
-
+/*Removido devido alto custo de memoria
 int MotorShield::identificadorDeComando(){
     int  i, aux = 1, temp = 0;
     for(i = 7; i >= 0 ; i--){
@@ -147,8 +147,8 @@ int MotorShield::identificadorDeComando(){
         aux *= 2;
     }
     return temp;
-}
-void MotorShield::converteComando(unsigned char identificador){
+}*/
+void MotorShield::converteComando(){
     boolean verifica;//bit de controle
 
     digitalWrite(_dir_latch, LOW);//desliga latch
@@ -158,7 +158,7 @@ void MotorShield::converteComando(unsigned char identificador){
     {
        digitalWrite(_dir_clk, LOW);//clock em low
 
-       if(identificador & (1<<i)) verifica = HIGH;
+       if(comando[i]) verifica = HIGH;
        else verifica = LOW;
 
        digitalWrite(_dir_ser, verifica);//Habilita saída de dados conforme condição acima

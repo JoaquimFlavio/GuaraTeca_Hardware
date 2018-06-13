@@ -1,37 +1,72 @@
-//Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
-//Fonseca Gomes, Marcos Dias da Conceição e Diego de Castro Rodrigues---*
-//----------------------------------------------------------------------*
-//Este arquivo é parte da Biblioteca de Funções GuaráTeca---------------*
-//A GuaráTeca é um software livre; você pode redistribuí-lo e/ou--------* 
-//modificá-lo sob os termos da Licença Pública Geral GNU como publicada-*
-//pela Fundação do Software Livre (FSF); na versão 3 da Licença,--------*
-//ou (a seu critério) qualquer versão posterior.------------------------*
-//
-//Este programa é distribuído na esperança de que possa ser útil,-------* 
-//mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO-----*
-//a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a-----------------*
-//Licença Pública Geral GNU para mais detalhes.-------------------------*
-//
-//Você deve ter recebido uma cópia da Licença Pública Geral GNU junto---*
-//com este programa. Se não, veja <http://www.gnu.org/licenses/>--------*
+/* 
+ * Guarateca_Hardware *** by *** Guarabots___________
+ * 
+ * [atuador: motor-shield]
+ * 
+ * Utilização das funçoes da motor shield para arduino,
+ * que permite o controle de até 4 motores DC.
+ * 
+ * Autor: Joaquim Flávio A Q Gomes___________________
+ * Data: 06/2018_____________________________________
+ */
 
-//Uso da MotorShield GuaraTeca_Hardware---------------------------------*
-//versao: 1.0-----------------------------------------------------------*
+//Inclusão da biblioteca.
+#include <GuaraTeca_Hardware.h> 
 
-#include <GuaraTeca_MotorShield.h>
-
-MotorShield motor;//declaramos um motor
+//Criamos um objeto para controlar os motores.
+MotorShield robo;
 
 void setup() {
-  motor.iniciaMotorShield();//preparamos a motorShield para receber os comandos
-  motor.controleDeCorrente(1, 255);//definimos a velocidade do motor, na porta 1, como maxima
+  //Inicializamos as portas de controle da motor shield.
+  robo.iniciaMotorShield();
+  /*
+   * Habilitamos o uso da porta M1 e M2 da motor shield com 
+   * velocidade total. A velocidade é definida em um intervalo
+   * de 0~255 onde 0 é a tensão minima e 255 a tensão maxima.
+   */
+  robo.controleDeCorrente(1, 255);
+  robo.controleDeCorrente(2, 255);
 }
 
 void loop() {
-  motor.sentido1(1);//motor gira no sentido 1
-  delay(1000);
-  motor.trava(1);//motor para
-  delay(1000);
-  motor.sentido2(1);//motor gira no sentido 2
-  delay(1000);
+  /*
+   * Realizamos o controle de direção de cada motor de forma
+   * independente, utilizando as funçoes de sentido1 e sentido2
+   * que permite alterar a direção de rotação do motor na porta
+   * informada.
+   */
+  robo.sentido1(1);
+  robo.sentido1(2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  robo.sentido1(1);
+  robo.sentido2(2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  robo.sentido2(1);
+  robo.sentido1(2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  robo.sentido2(1);
+  robo.sentido2(2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  /*
+   * Forçamos a parada do motor (freio), com a utilização
+   * desta função o motor irá travar de forma imediata e 
+   * permanecerá travado até segunda ordem!
+   *                 !!!Atenção!!!
+   * A utilização dessa função despende de alto consumo 
+   * energetico no sistema!
+   */
+  robo.trava(1);
+  robo.trava(2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  /*
+   * Diferentemente da função trava, a função desliga 
+   * proporciona o desligamento total do motor, de modo 
+   * que ele nao atue no movimento de rotação do motor.
+   * A exemplo: a função desliga seria algo semelhante 
+   * ao neutro de um carro/moto....
+   * A função desliga não gasta a energia do sistema.
+   */
+  robo.desliga(1);
+  robo.desliga(2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
 }

@@ -1,41 +1,78 @@
-//Copyright 2017 Joaquim Flávio Almeida Quirino Gomes, Dêmis Carlos ----*
-//Fonseca Gomes, Marcos Dias da Conceição e Diego de Castro Rodrigues---*
-//----------------------------------------------------------------------*
-//Este arquivo é parte da Biblioteca de Funções GuaráTeca---------------*
-//A GuaráTeca é um software livre; você pode redistribuí-lo e/ou--------* 
-//modificá-lo sob os termos da Licença Pública Geral GNU como publicada-*
-//pela Fundação do Software Livre (FSF); na versão 3 da Licença,--------*
-//ou (a seu critério) qualquer versão posterior.------------------------*
-//
-//Este programa é distribuído na esperança de que possa ser útil,-------* 
-//mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO-----*
-//a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a-----------------*
-//Licença Pública Geral GNU para mais detalhes.-------------------------*
-//
-//Você deve ter recebido uma cópia da Licença Pública Geral GNU junto---*
-//com este programa. Se não, veja <http://www.gnu.org/licenses/>--------*
+/* 
+ * Guarateca_Hardware *** by *** Guarabots___________
+ * 
+ * [atuador: ponteH simples/dupla]
+ * 
+ * Utilização das funçoes da ponte H, que permite o 
+ * controle de até 2 motores DC.
+ * 
+ * Autor: Joaquim Flávio A Q Gomes___________________
+ * Data: 06/2018_____________________________________
+ */
 
-//Uso da PonteH GuaraTeca_Hardware--------------------------------------*
-//versao: 1.0-----------------------------------------------------------*
+//Inclusão da biblioteca.
+#include <GuaraTeca_Hardware.h> 
 
-#include <GuaraTeca_PonteH.h>
-
-PonteH motor;//declaramos um motor
+//Definimos os pinos ao qual a ponte H esta conectado
+#define A1 7
+#define A2 6
+#define VA 10 //pino de veocidade
+#define B1 5
+#define B2 4
+#define VB 11 //pino de veocidade
 
 void setup() {
-  motor.iniciaPonteH(3,4,10,5,6,11);//preparamos a PonteH para receber os comandos
-  motor.controleDeCorrente(10, 255);//definimos a velocidade do motor, na porta 1, como maxima
-  motor.controleDeCorrente(11, 255);//definimos a velocidade do motor, na porta 2, como maxima
+  //Inicializamos as portas de controle da motor shield.
+  inicia_PonteH(A1, A2, VA, B1, B2, VB);
+   /*
+   * Habilitamos o uso do lado A e B da ponte H dupla, com 
+   * velocidade total. A velocidade é definida em um intervalo
+   * de 0~255 onde 0 é a tensão minima e 255 a tensão maxima.
+   */
+  controleDeCorrente_PonteH(VA, 255);
+  controleDeCorrente_PonteH(VB, 255);
 }
 
 void loop() {
-  motor.sentido1(3, 4);//motor 1 gira no sentido 1
-  motor.sentido1(5, 6);//motor 2 gira no sentido 1
-  delay(1000);
-  motor.trava(3, 4);//motor 1 para
-  motor.trava(5, 6);//motor 2 para
-  delay(1000);
-  motor.sentido2(3, 4);//motor 1 gira no sentido 2
-  motor.sentido2(5, 6);//motor 2 gira no sentido 2
-  delay(1000);
+   /*
+   * Realizamos o controle de direção de cada motor de forma
+   * independente, utilizando as funçoes de sentido1 e sentido2
+   * que permite alterar a direção de rotação do motor na porta
+   * informada, vale ressaltar que sempre informe ambas as portas
+   * do lado corresponde ao motor na ponteH.
+   */
+  sentido1_PonteH(A1, A2);
+  sentido1_PonteH(B1, B2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  sentido1_PonteH(A1, A2);
+  sentido2_PonteH(B1, B2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  sentido2_PonteH(A1, A2);
+  sentido1_PonteH(B1, B2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  sentido2_PonteH(A1, A2);
+  sentido2_PonteH(B1, B2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  /*
+   * Forçamos a parada do motor (freio), com a utilização
+   * desta função o motor irá travar de forma imediata e 
+   * permanecerá travado até segunda ordem!
+   *                 !!!Atenção!!!
+   * A utilização dessa função despende de alto consumo 
+   * energetico no sistema!
+   */
+  trava_PonteH(A1, A2);
+  trava_PonteH(B1, B2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
+  /*
+   * Diferentemente da função trava, a função desliga 
+   * proporciona o desligamento total do motor, de modo 
+   * que ele nao atue no movimento de rotação do motor.
+   * A exemplo: a função desliga seria algo semelhante 
+   * ao neutro de um carro/moto....
+   * A função desliga não gasta a energia do sistema.
+   */
+  desliga_PonteH(A1, A2);
+  desliga_PonteH(B1, B2);
+  delay(150);//Pausa na execução do codigo, de 150ms.
 }

@@ -13,8 +13,7 @@ A GuaraTeca_Hardware é uma sub-biblioteca da biblioteca [Guarateca](https://git
 ## Exemplo de uso
 
 ```c++
-#define funcao Hardware
-#include <GuaraTeca.h>
+#include <GuaraTeca_Hardware.h>
 
 #define porta 1
 
@@ -34,10 +33,21 @@ void loop() {
   delay(150);
 }
 ```
+---
+## Sensores
 
+### Sensor de eletro-condutividade em liquidos/solidos
+```c++
+void inicia_SensorAgua(uint8_t pino);
+```
+---
+## Atuadroes
+---
 ## Aprendendo
 
 Na [documentação oficial da GuaraTeca](http://guarabots.wordpress.com/guarateca) você encontrará tudo o que precisa para dominar a biblioteca.
+
+## 
 
 ## Suporte
 

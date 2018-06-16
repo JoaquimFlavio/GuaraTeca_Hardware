@@ -17,12 +17,15 @@
 
 #include <GuaraTeca_Hardware.h>
 
-//Led Funcoes________________________________________
-void inicia_Led(uint8_t pino){
+//Dpino Funcoes________________________________________
+void inicia_pino(uint8_t pino){
     pinMode(pino, OUTPUT);
 }
-void estado_Led(uint8_t pino, bool estado){
+void estado_pino(uint8_t pino, bool estado){
     digitalWrite(pino, estado ? HIGH : LOW);
+}
+void estado_pino(uint8_t pino, unsigned char PWM){
+    analogWrite(pino, PWM);
 }
 //Buzzer Funcoes__________________________________________________
 void inicia_Buzzer(uint8_t pino){
@@ -46,18 +49,4 @@ void beep(uint8_t speakerpino, int frequencyInHertz, long timeInMilliseconds){
         delayMicroseconds(delayAmount);
     }
     delay(20);
-}
-//Rele Funcoes____________________________________________________________
-void inicia_Rele(uint8_t pino){
-    pinMode(pino, OUTPUT);
-}
-void estado_Rele(uint8_t pino, bool estado){
-    /*if(estado){
-        pinMode(pino, OUTPUT);
-        digitalWrite(pino, HIGH);
-    }else{
-        digitalWrite(pino, LOW);
-        pinMode(pino, INPUT);
-    }*/
-    digitalWrite(pino, estado ? HIGH : LOW);
 }

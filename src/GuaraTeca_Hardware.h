@@ -61,15 +61,13 @@ void inicia_Botao(uint8_t pin);//metodo para preparar o hardware para os devidos
 int estado_Botao(uint8_t pin);//metodo para leitura do botao.
 
 //Atuadores________________________________________________________________________________________
-void inicia_Led(uint8_t pino);//metodo para preparar o hardware para os devidos comandos.
-void estado_Led(uint8_t pino, bool estado);//metodo para alterar o estado do led (ligado/desligado).
+void inicia_pino(uint8_t pino);//metodo para preparar o hardware para os devidos comandos.
+void estado_pino(uint8_t pino, bool estado);//metodo para alterar o estado do pino digital (ligado/desligado).
+void estado_pino(uint8_t pino, unsigned char PWM);//metodo para inserir um pulso PWM em uma porta PWM (0~255).
 
 void inicia_Buzzer(uint8_t pino);//metodo para preparar o hardware para os devidos comandos.
 void beepSimples(uint8_t pino, int tempo);//metodo para ativar o "beep" durante 'X' milissegundos.
 void beep(uint8_t speakerPin, int frequencyInHertz, long timeInMilliseconds);//metodo para tocar determinada "tom".
-
-void inicia_Rele(uint8_t pino);//metodo para preparar o hardware para os devidos comandos.
-void estado_Rele(uint8_t pino, bool estado);//metodo para alterar o estado do rele (aberto/fechado).
 
 //Motores______________________________________________________________________________________
 void inicia_PonteH(uint8_t P1, uint8_t P2, uint8_t P3, uint8_t P4, uint8_t P5, uint8_t P6);//metodo para preparar o hardware para os devidos comandos.
@@ -117,6 +115,8 @@ class MotorShield{
     private:
         int comando[8];//variavel que guarda a cadeia de comandos binarios para a MotorShield.
 };
+
+//Fase de testes
 
 void iniciaServo(uint8_t pinoControle);
 void vaPara(uint8_t pinoControle, int angle);//metodo para posicionar o Servo motor em x graus.

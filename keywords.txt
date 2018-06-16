@@ -1,10 +1,3 @@
-Buzzer	KEYWORD1	Buzzer
-iniciaBuzzer	KEYWORD2
-beepSimples	    KEYWORD2
-beep		    KEYWORD2
-marcha		    KEYWORD2
-mario		    KEYWORD2
-
 MotorShield	KEYWORD1	MotorShield
 iniciaMotorShield	    KEYWORD2
 sentido1		        KEYWORD2
@@ -14,63 +7,39 @@ controleDeCorrente	    KEYWORD2
 identificadorDeComando	KEYWORD2
 converteComando		    KEYWORD2
 
-PonteH	KEYWORD1	PonteH
-iniciaPonteH		KEYWORD2
-sentido1		    KEYWORD2
-sentido2		    KEYWORD2
-trava			    KEYWORD2
-controleDeCorrente	KEYWORD2
+inicia_SensorAgua		    KEYWORD2
+leitura_SensorAgua		    KEYWORD2
 
-Botao	KEYWORD1	Botao
-iniciaBotao		KEYWORD2
-estado		    KEYWORD2
+inicia_SensorRefletancia	KEYWORD2
+leitura_SensorRefletancia	KEYWORD2
 
-SensorAgua	KEYWORD1	SensorAgua
-iniciaSensorAgua	KEYWORD2
-leitura			    KEYWORD2
+inicia_GY521_MPU6050		KEYWORD2
+obtemDados_GY521_MPU6050	KEYWORD2
 
-TCS230	KEYWORD1	TCS230
-iniciaTCS230	KEYWORD2
-filtroVermelho	KEYWORD2
-filtroVerde	    KEYWORD2
-filtroAzul	    KEYWORD2
-filtroNulo	    KEYWORD2
-frequencia	    KEYWORD2
-leitura KEYWORD2
+inicia_TCS230		KEYWORD2
+filtroCor_TCS230	KEYWORD2
+frequencia_TCS230	KEYWORD2
+leitura_TCS230		KEYWORD2
 
-SensorDHT	KEYWORD1	SensorDHT
-leitura_temperatura	KEYWORD2
-leitura_umidade		KEYWORD2
+inicia_Ultrassonico		KEYWORD2
+leitura_Ultrassonico	KEYWORD2
 
-GY521_MPU6050	KEYWORD1	GY521_MPU6050
-iniciaSensorGY521_MPU6050	KEYWORD2
-ObtemDados		KEYWORD2
+inicia_TTC104	KEYWORD2
+leitura_TTC104	KEYWORD2
 
-SensorRefletancia	KEYWORD1	SensorRefletancia
-iniciaSensorRefletancia	KEYWORD2
-leitura			        KEYWORD2
+inicia_Botao	KEYWORD2
+estado_Botao	KEYWORD2
 
-HCSR04	KEYWORD1	HCSR04
-iniciaHCSR04	KEYWORD2
-leitura KEYWORD2
+inicia_pino		KEYWORD2
+estado_pino		KEYWORD2
 
-Servo	KEYWORD1	Servo
-vaPara		KEYWORD2
-direita		KEYWORD2
-esquerda	KEYWORD2
+inicia_Buzzer	KEYWORD2
+beepSimples		KEYWORD2
+beep		    KEYWORD2
 
-TelaCristalLiquido	KEYWORD1	TelaCristalLiquido
-iniciaTelaCristalLiquido	KEYWORD2
-escreveTela			        KEYWORD2
-limpaTela			        KEYWORD2
-vaParaHome			        KEYWORD2
-vaParaDireita			    KEYWORD2
-vaParaEsquerda			    KEYWORD2
-posicaoCursor			    KEYWORD2
-estadoLigado			    KEYWORD2
-estadoDesligado			    KEYWORD2
-pisca				        KEYWORD2
-paraPiscar			        KEYWORD2
-pisca_cursor			    KEYWORD2
-paraPiscar_cursor			KEYWORD2
-luzFundo			        KEYWORD2
+inicia_PonteH	            KEYWORD2
+sentido1_PonteH		        KEYWORD2
+sentido2_PonteH		        KEYWORD2
+trava_PonteH	            KEYWORD2
+controleDeCorrente_PonteH	KEYWORD2
+desliga_PonteH		        KEYWORD2

@@ -1,4 +1,4 @@
-MotorShield	KEYWORD1	MotorShield
+MotorShield	KEYWORD1
 iniciaMotorShield	    KEYWORD2
 sentido1		        KEYWORD2
 sentido2		        KEYWORD2

@@ -18,36 +18,47 @@
 #include <GuaraTeca_Hardware.h>
 
 //CI: 74HC595___________________________________________________________________
-void inicia_74HC595(uint8_t SH_CP, uint8_t DS, uint8_t ST_CP, uint8_t enable){
-    pinMode(SH_CP,  OUTPUT);
-    pinMode(DS,     OUTPUT);
-    pinMode(ST_CP,  OUTPUT);
-    if(enable != -1){
+
+SN74HC595::SN74HC595(uint8_t SH_CP, uint8_t ST_CP, uint8_t DS, uint8_t enable){
+    this->_SH_CP = SH_CP;
+    this->_ST_CP = ST_CP;
+    this->_DS    = DS;
+}
+void SN74HC595::inicia(void){
+    pinMode(_SH_CP, OUTPUT);
+    pinMode(_ST_CP, OUTPUT);
+    pinMode(_DS,    OUTPUT);
+
+    /*if(enable != -1){
         pinMode(enable, OUTPUT);    
         digitalWrite(enable, LOW);
-    }
+    }*/
 }
-void converteComando_74HC595(byte identificador, uint8_t SH_CP, uint8_t DS, uint8_t ST_CP){
-    bool verifica;//bit de controle
-
-    digitalWrite(ST_CP, LOW);//desliga latch
-    digitalWrite(SH_CP,   LOW);//desabilita o clock
-
-    for(unsigned char i=0x0; i<0x08; i++)//loop finito para enviar os 8 bits
-    {
-       digitalWrite(SH_CP, LOW);//clock em low
-
-       if(identificador & (1<<i)) verifica = HIGH;
-       else verifica = LOW;
-
-       digitalWrite(DS, verifica);//Habilita saída de dados conforme condição acima
-       digitalWrite(SH_CP, HIGH);
-    }
-
-    digitalWrite(SH_CP, LOW);
-    digitalWrite(ST_CP, HIGH);
+void SN74HC595::estadoPino(uint8_t pino, uint8_t estado){
+  if(estado) buf = buf|(1<<pino);
+  else       buf = buf&~(1<<pino);
+  
+  digitalWrite(_ST_CP, LOW);
+  shiftOut(_DS, _SH_CP, MSBFIRST, buf);
+  digitalWrite(_ST_CP, HIGH);
 }
 
-void estado_74HC595(uint8_t enablePin, bool enable){
-    digitalWrite(enablePin, enable ? HIGH : LOW);
+//CI: PCF8574___________________________________________________________________
+PCF8574::PCF8574(uint8_t endereco){
+    this->_endereco = endereco;
+}
+void PCF8574::estadoPino(uint8_t pino, bool estado){
+    if (estado) buf = buf|(1<<pino);
+    else        buf = buf&~(1<<pino); 
+    
+    Wire.beginTransmission(_endereco);
+    Wire.write(buf);
+    Wire.endTransmission(); 
+}
+
+byte PCF8574::leitura(void){
+  //Solicita 1Byte de dados do endereço informado
+  Wire.requestFrom(_endereco, 1);
+  if (Wire.available()) return Wire.read();
+  return -1;
 }

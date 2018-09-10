@@ -22,6 +22,8 @@
     #include <Arduino.h>
 #endif
 
+#include <Wire.h>
+
 //Sensores_________________________________________________________________________________________
 void inicia_SensorAgua(uint8_t pino);//metodo para preparar o hardware para os devidos comandos.
 short int leitura_SensorAgua(uint8_t pino);//metodo para retornar o valor lido pelo sensor.
@@ -70,13 +72,61 @@ void beepSimples(uint8_t pino, int tempo);//metodo para ativar o "beep" durante 
 void beep(uint8_t speakerPin, int frequencyInHertz, long timeInMilliseconds);//metodo para tocar determinada "tom".
 
 //Motores______________________________________________________________________________________
-void inicia_PonteH(uint8_t P1, uint8_t P2, uint8_t P3, uint8_t P4, uint8_t P5, uint8_t P6);//metodo para preparar o hardware para os devidos comandos.
-void sentido1_PonteH(uint8_t P1, uint8_t P2);//metodo para ativar o motor DC no sentido 1, enviando o pulso positivo para o P1 e o terra para o P2.
-void sentido2_PonteH(uint8_t P1, uint8_t P2);//metodo para ativar o motor DC no sentido 2, enviando o pulso positivo para o P2 e o terra para o P1.
-void trava_PonteH(uint8_t P1, uint8_t P2);//metodo para travar o motor, enviando pulso positivo para ambas as portas.
-void controleDeCorrente_PonteH(uint8_t P1, float corrente);//metodo de controle de corrente passada para o pino de controle da ponteH.
-void desliga_PonteH(uint8_t P1, uint8_t P2);//metodo para desligar os motores.
+/*
+    Mapeamento de operação logica de uma ponteH
 
+    |==============================================|
+    |______INPUT______||__________OUTPUT___________|
+    | IN1 | IN2 | PWM || OUT1 | OUT2 |    MODE     |
+    |==============================================|
+    |  L  |  H  |  H  ||  L   |  H   |     CCW     |
+    |  -  |  -  |  L  ||  L   |  L   | short brake |
+    |----------------------------------------------| 
+    |  H  |  L  |  H  ||  H   |  L   |     CW      |
+    |  -  |  -  |  L  ||  L   |  L   | short brake |
+    |----------------------------------------------|
+    |  H  |  H  |  H  ||HIGH IMPENDCE|    Stop     |
+    |----------------------------------------------|
+    |  L  |  L  |  L  ||     OFF     |   Standby   |
+    |==============================================|
+*/
+
+void inicia_PonteH(uint8_t IN1A, uint8_t IN2A, uint8_t A_PWM, uint8_t IN1B, uint8_t IN2B, uint8_t B_PWM);//metodo para preparar o hardware para os devidos comandos.
+void controleDeCorrente_PonteH(uint8_t PWM, float corrente);//metodo de controle de corrente passada para o pino de controle.
+void sentido1_PonteH(uint8_t IN1, uint8_t IN2);//metodo para ativar o motor DC no sentido 1, enviando o pulso positivo para o P1 e o terra para o P2.
+void sentido2_PonteH(uint8_t IN1, uint8_t IN2);//metodo para ativar o motor DC no sentido 2, enviando o pulso positivo para o P2 e o terra para o P1.
+void trava_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM);//metodo para travar o motor, enviando pulso positivo para ambas as portas.
+void desliga_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM);//metodo para desligar os motores.
+
+
+/*
+    Mapeamento de operação logica do TB6612FNG
+
+    |===================================================|
+    |__________INPUT________|__________OUTPUT___________|
+    | IN1 | IN2 | PWM | STB | OUT1 | OUT2 |    MODE     |
+    |===================================================|
+    |  H  |  H  | H/L |  H  |  L   |  L   | short brake |
+    |---------------------------------------------------|
+    |  L  |  H  |  H  |  H  |  L   |  H   |     CCW     |
+    |     |     |  L  |  H  |  L   |  L   | short brake |
+    |---------------------------------------------------| 
+    |  H  |  L  |  H  |  L  |  H   |  L   |     CW      |
+    |  -  |  -  |  L  |  L  |  L   |  L   | short brake |
+    |---------------------------------------------------|
+    |  L  |  L  |  H  |  H  |     OFF     |    Stop     |
+    |---------------------------------------------------|
+    | H/L | H/L | H/L |  L  |     OFF     |   Standby   |
+    |===================================================|
+*/
+
+void inicia_TB6612FNG(uint8_t IN1A, uint8_t IN2A, uint8_t A_PWM, uint8_t IN1B, uint8_t IN2B, uint8_t B_PWM, uint8_t STBY);//metodo para preparar o hardware para os devidos comandos.
+void controleDeCorrente_TB6612FNG(uint8_t PWM, int corrente);//metodo de controle de corrente passada para o pino de controle.
+void sentido1_TB6612FNG(uint8_t IN1, uint8_t IN2);//metodo para ativar o motor DC no sentido 1, enviando o pulso positivo para o P1 e o terra para o P2.
+void sentido2_TB6612FNG(uint8_t IN1, uint8_t IN2);//metodo para ativar o motor DC no sentido 2, enviando o pulso positivo para o P2 e o terra para o P1.
+void trava_TB6612FNG(uint8_t IN1, uint8_t IN2, uint8_t PWM, uint8_t STBY);//metodo para travar o motor, enviando pulso positivo para ambas as portas.
+void desliga_TB6612FNG(uint8_t IN1, uint8_t IN2, uint8_t PWM, uint8_t STBY);//metodo para desligar os motores.
+void stby_TB6612FNG(uint8_t STBY, bool estado);//metodo para controlar o standby.
 
 /*
     Mapeamento do vetor de controle da Classe MotorShield:
@@ -130,9 +180,24 @@ void vaPara(uint8_t pinoControle, int angle);//metodo para posicionar o Servo mo
     OE     ou enable -> Ativa/Desativa saida dados   || enable flipflop do registrador
 */
 
-void inicia_74HC595(uint8_t SH_CP, uint8_t DS, uint8_t ST_CP, uint8_t enable = -1);
+class SN74HC595{
+    public:
+        SN74HC595(uint8_t SH_CP, uint8_t ST_CP, uint8_t DS, uint8_t enable = -1);
+        void inicia(void);
+        void estadoPino(uint8_t pino, uint8_t estado);
+    private:
+        uint8_t _SH_CP, _ST_CP, _DS;  
+        byte buf = 0;  
+};
 
-void converteComando_74HC595(byte identificador, uint8_t SH_CP, uint8_t DS, uint8_t ST_CP);
-void estado_74HC595(uint8_t enablePin, bool enable);
+class PCF8574{
+    public:
+        PCF8574(uint8_t endereco);
+        void estadoPino (uint8_t pino, bool estado);
+        byte leitura    (void);
+    private:
+        byte buf = 0;
+        uint8_t _endereco;
+};
 
 #endif

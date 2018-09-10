@@ -151,7 +151,7 @@ int estado_Botao(uint8_t pin){
 }
 //Giroscopio/Acelerometro Funcoes_______________________________________________________________
 void inicia_GY521_MPU6050(char endereco){
-    Wire.begin();
+    //Wire.begin();
     Wire.beginTransmission(endereco);
     Wire.write(0x6B);
     //Inicializa o MPU-6050

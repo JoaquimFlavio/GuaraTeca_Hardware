@@ -62,3 +62,44 @@ byte PCF8574::leitura(void){
   if (Wire.available()) return Wire.read();
   return -1;
 }
+
+//CI: RTC DS1307_________________________________________________________________
+void defineTempo_DS1307(uint8_t endereco, uint8_t segundos, uint8_t minutos, uint8_t horas, uint8_t diadasemana, uint8_t diadomes, uint8_t mes, uint8_t ano){
+  Wire.beginTransmission(endereco);
+  Wire.write(0x00); //Stop no CI para que o mesmo possa receber os dados
+
+  Wire.write(ConverteParaBCD(segundos));
+  Wire.write(ConverteParaBCD(minutos));
+  Wire.write(ConverteParaBCD(horas));
+  Wire.write(ConverteParaBCD(diadasemana));
+  Wire.write(ConverteParaBCD(diadomes));
+  Wire.write(ConverteParaBCD(mes));
+  Wire.write(ConverteParaBCD(ano));
+  
+  Wire.write(0x00); //Start no CI
+  
+  Wire.endTransmission(); 
+}
+
+void leitura_DS1307(uint8_t endereco, int vet[7]){
+  Wire.beginTransmission(endereco);
+  Wire.write(0x00);
+  Wire.endTransmission();
+  Wire.requestFrom(endereco, 7);
+  
+  vet[0] = ConverteparaDecimal(Wire.read());
+  vet[1] = ConverteparaDecimal(Wire.read());
+  vet[2] = ConverteparaDecimal(Wire.read() & 0b111111); 
+  vet[3] = ConverteparaDecimal(Wire.read()); 
+  vet[4] = ConverteparaDecimal(Wire.read());
+  vet[5] = ConverteparaDecimal(Wire.read());
+  vet[6] = ConverteparaDecimal(Wire.read());
+}
+
+byte ConverteParaBCD(byte val){ //Converte o número de decimal para BCD
+  return ( (val/10*16) + (val%10) );
+}
+
+byte ConverteparaDecimal(byte val)  { //Converte de BCD para decimal
+  return ( (val/16*10) + (val%16) );
+}

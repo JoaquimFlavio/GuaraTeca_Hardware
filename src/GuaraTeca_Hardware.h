@@ -200,4 +200,9 @@ class PCF8574{
         uint8_t _endereco;
 };
 
+void defineTempo_DS1307(uint8_t endereco, uint8_t segundos, uint8_t minutos, uint8_t horas, uint8_t diadasemana, uint8_t diadomes, uint8_t mes, uint8_t ano);
+void leitura_DS1307(uint8_t endereco, int vet[7]); 
+byte ConverteParaBCD(byte val);//Converte o número de decimal para BCD.
+byte ConverteparaDecimal(byte val);//Converte de BCD para decimal.
+
 #endif

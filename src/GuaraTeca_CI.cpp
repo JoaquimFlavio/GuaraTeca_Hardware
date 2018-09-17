@@ -25,9 +25,9 @@ SN74HC595::SN74HC595(uint8_t SH_CP, uint8_t ST_CP, uint8_t DS, uint8_t enable){
     this->_DS    = DS;
 }
 void SN74HC595::inicia(void){
-    pinMode(_SH_CP, OUTPUT);
-    pinMode(_ST_CP, OUTPUT);
-    pinMode(_DS,    OUTPUT);
+    pinMode(this->_SH_CP, OUTPUT);
+    pinMode(this->_ST_CP, OUTPUT);
+    pinMode(this->_DS,    OUTPUT);
 
     /*if(enable != -1){
         pinMode(enable, OUTPUT);    
@@ -35,12 +35,12 @@ void SN74HC595::inicia(void){
     }*/
 }
 void SN74HC595::estadoPino(uint8_t pino, uint8_t estado){
-  if(estado) buf = buf|(1<<pino);
-  else       buf = buf&~(1<<pino);
+  if(estado) this->buf = this->buf|(1<<pino);
+  else       this->buf = this->buf&~(1<<pino);
   
-  digitalWrite(_ST_CP, LOW);
-  shiftOut(_DS, _SH_CP, MSBFIRST, buf);
-  digitalWrite(_ST_CP, HIGH);
+  digitalWrite(this->_ST_CP, LOW);
+  shiftOut    (this->_DS, this->_SH_CP, MSBFIRST, this->buf);
+  digitalWrite(this->_ST_CP, HIGH);
 }
 
 //CI: PCF8574___________________________________________________________________
@@ -48,18 +48,28 @@ PCF8574::PCF8574(uint8_t endereco){
     this->_endereco = endereco;
 }
 void PCF8574::estadoPino(uint8_t pino, bool estado){
-    if (estado) buf = buf|(1<<pino);
-    else        buf = buf&~(1<<pino); 
+    if (estado) this->buf = this->buf|(1<<pino);
+    else        this->buf = this->buf&~(1<<pino); 
     
-    Wire.beginTransmission(_endereco);
-    Wire.write(buf);
+    Wire.beginTransmission(this->_endereco);
+    Wire.write(this->buf);
     Wire.endTransmission(); 
 }
 
 byte PCF8574::leitura(void){
   //Solicita 1Byte de dados do endereço informado
-  Wire.requestFrom(_endereco, 1);
-  if (Wire.available()) return Wire.read();
+  Wire.requestFrom(this->_endereco, 1);
+
+  if (Wire.available()){
+      byte r = Wire.read();
+      byte a=1;
+  
+      for (int i = 0; i < 8; i++){  
+        this->porta[i] = byte(r & a) > 0 ? 1 : 0;
+        a*=2;
+      }
+      return r;
+  }
   return -1;
 }
 

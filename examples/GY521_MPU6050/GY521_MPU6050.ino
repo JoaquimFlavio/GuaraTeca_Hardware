@@ -9,26 +9,29 @@
  * !!!!Conectar nas portas I2C do micro-controlador
  * 
  * Autor: Joaquim Flávio A Q Gomes___________________
- * Data: 06/2018_____________________________________
+ * Data: 09/2018_____________________________________
  */
 
 //Inclusão da biblioteca.
 #include <GuaraTeca_Hardware.h> 
+//Inclusão da biblioteca para I2C.
+#include <Wire.h>
 
 //Definimos o endereço do sensor no barramento I2C.
 #define enderecoPadrao 0x68
 
-//Definimos a variavel que irá armazenar os dados.
+//Definimos o aray que irá armazenar os dados.
 int dados[7];
 
 void setup() {
   //Inicialização do monitor Serial em 9600.
   Serial.begin(9600);
+  //Inicializamos a biblioteca para I2C.
+  Wire.begin(); 
    /*
-   * Inicializamos o sensor de condutividade em liquidos 
-   * e solidos (sensor agua) no endereço previamente 
-   * definidodo barramento I2C.
-   */ 
+   * Inicializamos o sensor giroscopio/acelerometro no 
+   * endereço previamente definidodo no barramento I2C.
+   */
   inicia_GY521_MPU6050(enderecoPadrao);
 }
 

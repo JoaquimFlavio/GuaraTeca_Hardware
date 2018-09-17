@@ -16,7 +16,6 @@
 //com este programa. Se não, veja <http://www.gnu.org/licenses/>--------*
 
 #include <GuaraTeca_Hardware.h>
-#include <Wire.h>
 #include <math.h>
 
 //Sensor Agua Funcoes________________________________________
@@ -151,7 +150,6 @@ int estado_Botao(uint8_t pin){
 }
 //Giroscopio/Acelerometro Funcoes_______________________________________________________________
 void inicia_GY521_MPU6050(char endereco){
-    //Wire.begin();
     Wire.beginTransmission(endereco);
     Wire.write(0x6B);
     //Inicializa o MPU-6050

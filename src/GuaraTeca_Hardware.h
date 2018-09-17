@@ -195,6 +195,7 @@ class PCF8574{
         PCF8574(uint8_t endereco);
         void estadoPino (uint8_t pino, bool estado);
         byte leitura    (void);
+        bool porta[8];
     private:
         byte buf = 0;
         uint8_t _endereco;

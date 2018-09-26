@@ -29,7 +29,7 @@ leitura_TTC104	KEYWORD2
 
 inicia_Botao	KEYWORD2
 estado_Botao	KEYWORD2
-
+    
 inicia_pino		KEYWORD2
 estado_pino		KEYWORD2
 
@@ -44,10 +44,10 @@ trava_PonteH	            KEYWORD2
 controleDeCorrente_PonteH	KEYWORD2
 desliga_PonteH		        KEYWORD2
 
-PCF8574	KEYWORD1	PCF8574
-SN74HC595	KEYWORD1	SN74HC595
+SN74HC595	KEYWORD1	SN74HC595   
+inicia                  KEYWORD2
+estadoPino              KEYWORD2
 
-inicia	    KEYWORD2
+PCF8574	KEYWORD1	PCF8574
 estadoPino		        KEYWORD2
-sentido2		        KEYWORD2
 leitura			        KEYWORD2

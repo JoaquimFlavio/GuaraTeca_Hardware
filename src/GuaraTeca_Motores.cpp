@@ -170,6 +170,7 @@ void MotorShield::converteComando(){
 }
 
 //PonteH_____________________________________________________________________________
+
 void inicia_PonteH(uint8_t IN1A, uint8_t IN2A, uint8_t A_PWM, uint8_t IN1B, uint8_t IN2B, uint8_t B_PWM){
     pinMode(IN1A , OUTPUT);//define o A1 como saida.
     pinMode(IN2A , OUTPUT);//define o A2 como saida.
@@ -192,11 +193,11 @@ void trava_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM){
 
     controleDeCorrente_PonteH(PWM, HIGH);//define a corrente no PWM como maxima.
 }
-void desliga_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM){
+void desliga_PonteH(uint8_t IN1, uint8_t IN2/*, uint8_t PWM*/){
     digitalWrite(IN1, LOW);//define o P1 como desativado.
     digitalWrite(IN2, LOW);//define o P2 como desativado.
 
-    controleDeCorrente_PonteH(PWM, LOW);//define a corrente no PWM como minima.
+    //controleDeCorrente_PonteH(PWM, LOW);//define a corrente no PWM como minima.
 }
 void controleDeCorrente_PonteH(uint8_t PWM, float corrente){
     analogWrite(PWM, corrente);//define a corrente que saira para o motor; Conecte em um pino PWM.

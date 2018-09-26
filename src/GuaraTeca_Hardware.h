@@ -96,7 +96,7 @@ void controleDeCorrente_PonteH(uint8_t PWM, float corrente);//metodo de controle
 void sentido1_PonteH(uint8_t IN1, uint8_t IN2);//metodo para ativar o motor DC no sentido 1, enviando o pulso positivo para o P1 e o terra para o P2.
 void sentido2_PonteH(uint8_t IN1, uint8_t IN2);//metodo para ativar o motor DC no sentido 2, enviando o pulso positivo para o P2 e o terra para o P1.
 void trava_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM);//metodo para travar o motor, enviando pulso positivo para ambas as portas.
-void desliga_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM);//metodo para desligar os motores.
+void desliga_PonteH(uint8_t IN1, uint8_t IN2/*, uint8_t PWM*/);//metodo para desligar os motores.
 
 
 /*

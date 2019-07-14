@@ -384,3 +384,25 @@ void setNumber_7segmentos(int number, uint8_t L1, uint8_t L2, uint8_t L3, uint8_
         break;
     }
 }
+
+//L9110____________________________________________________________________________________________________________________________
+void iniciaL9110(uint8_t IN1A, uint8_t IN2A){
+    pinMode(IN1A, OUTPUT);
+    pinMode(IN2A, OUTPUT);
+}
+void sentido1_L9110(uint8_t IN1, uint8_t IN2, char PWM){
+    analogWrite(IN1, PWM);
+    analogWrite(IN2, LOW);
+}
+void sentido2_L9110(uint8_t IN1, uint8_t IN2, char PWM){
+    analogWrite(IN1, LOW);
+    analogWrite(IN2, PWM);
+}
+void trava_L9110(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, HIGH);
+}
+void desliga_L9110(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+}

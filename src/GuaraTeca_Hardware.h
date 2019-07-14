@@ -166,10 +166,17 @@ class MotorShield{
         int comando[8];//variavel que guarda a cadeia de comandos binarios para a MotorShield.
 };
 
-//Fase de testes
-
+//#########################Fase de testes############################
 void iniciaServo(uint8_t pinoControle);
 void vaPara(uint8_t pinoControle, int angle);//metodo para posicionar o Servo motor em x graus.
+
+void iniciaL9110(uint8_t IN1A, uint8_t IN2A);
+void sentido1_L9110(uint8_t IN1, uint8_t IN2, char PWM);
+void sentido2_L9110(uint8_t IN1, uint8_t IN2, char PWM);
+void trava_L9110(uint8_t IN1, uint8_t IN2);
+void desliga_L9110(uint8_t IN1, uint8_t IN2);
+
+
    
 //CI_______________________________________________________________________________________________
 

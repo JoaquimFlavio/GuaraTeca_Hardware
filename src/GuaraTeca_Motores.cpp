@@ -170,32 +170,76 @@ void MotorShield::converteComando(){
 }
 
 //PonteH_____________________________________________________________________________
-void inicia_PonteH(uint8_t P1, uint8_t P2, uint8_t P3, uint8_t P4, uint8_t P5, uint8_t P6){
-    pinMode(P1, OUTPUT);//define o P1 como saida.
-    pinMode(P2, OUTPUT);//define o P2 como saida.
-    pinMode(P3, OUTPUT);//define o P3 como saida.
-    pinMode(P4, OUTPUT);//define o P4 como saida.
-    pinMode(P5, OUTPUT);//define o P5 como saida.
-    pinMode(P6, OUTPUT);//define o P6 como saida.
+
+void inicia_PonteH(uint8_t IN1A, uint8_t IN2A, uint8_t A_PWM, uint8_t IN1B, uint8_t IN2B, uint8_t B_PWM){
+    pinMode(IN1A , OUTPUT);//define o A1 como saida.
+    pinMode(IN2A , OUTPUT);//define o A2 como saida.
+    pinMode(IN1B , OUTPUT);//define o B1 como saida.
+    pinMode(IN2B , OUTPUT);//define o B2 como saida.
+    pinMode(A_PWM, OUTPUT);//define o A_PWM como saida.
+    pinMode(B_PWM, OUTPUT);//define o B_PWM como saida.
 }
-void sentido1_PonteH(uint8_t P1, uint8_t P2){
-    digitalWrite(P1, HIGH);//define o P1 como ativo.
-    digitalWrite(P2,  LOW);//define o P2 como desativado.
+void sentido1_PonteH(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, HIGH);//define o P1 como ativo.
+    digitalWrite(IN2,  LOW);//define o P2 como desativado.
 }
-void sentido2_PonteH(uint8_t P1, uint8_t P2){
-    digitalWrite(P1,  LOW);//define o P1 como desativado.
-    digitalWrite(P2, HIGH);//define o P2 como ativo.
+void sentido2_PonteH(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1,  LOW);//define o P1 como desativado.
+    digitalWrite(IN2, HIGH);//define o P2 como ativo.
 }
-void trava_PonteH(uint8_t P1, uint8_t P2){
-    digitalWrite(P1, HIGH);//define o P1 como ativo.
-    digitalWrite(P2, HIGH);//define o P2 como ativo.
+void trava_PonteH(uint8_t IN1, uint8_t IN2, uint8_t PWM){
+    digitalWrite(IN1, HIGH);//define o P1 como ativo.
+    digitalWrite(IN2, HIGH);//define o P2 como ativo.
+
+    controleDeCorrente_PonteH(PWM, HIGH);//define a corrente no PWM como maxima.
 }
-void desliga_PonteH(uint8_t P1, uint8_t P2){
-    digitalWrite(P1, LOW);//define o P1 como desativado.
-    digitalWrite(P2, LOW);//define o P2 como desativado.
+void desliga_PonteH(uint8_t IN1, uint8_t IN2/*, uint8_t PWM*/){
+    digitalWrite(IN1, LOW);//define o P1 como desativado.
+    digitalWrite(IN2, LOW);//define o P2 como desativado.
+
+    //controleDeCorrente_PonteH(PWM, LOW);//define a corrente no PWM como minima.
 }
-void controleDeCorrente_PonteH(uint8_t P1, float corrente){
-    analogWrite(P1, corrente);//define a corrente que saira para o motor; Conecte em um pino PWM.
+void controleDeCorrente_PonteH(uint8_t PWM, float corrente){
+    analogWrite(PWM, corrente);//define a corrente que saira para o motor; Conecte em um pino PWM.
+}
+
+//TB6612FNG______________________________________________________________________
+void inicia_TB6612FNG(uint8_t IN1A, uint8_t IN2A, uint8_t A_PWM, uint8_t IN1B, uint8_t IN2B, uint8_t B_PWM, uint8_t STBY){
+    pinMode(IN1A , OUTPUT);//define o A1 como saida.
+    pinMode(IN2A , OUTPUT);//define o B2 como saida.
+    pinMode(IN1B , OUTPUT);//define o B1 como saida.
+    pinMode(IN2B , OUTPUT);//define o B2 como saida.
+    pinMode(A_PWM, OUTPUT);//define o A_PWM como saida.
+    pinMode(B_PWM, OUTPUT);//define o B_PWM como saida.
+    pinMode(STBY , OUTPUT);//define o STBY como saida.
+}
+void sentido1_TB6612FNG(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, LOW );//define o IN1 como LOW.
+    digitalWrite(IN2, HIGH);//define o IN2 como HIGH.
+}
+void sentido2_TB6612FNG(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, HIGH);//define o IN1 como HIGH.
+    digitalWrite(IN2, LOW );//define o IN2 como LOW.
+}
+void trava_TB6612FNG(uint8_t IN1, uint8_t IN2, uint8_t PWM, uint8_t STBY){
+    digitalWrite(IN1 , LOW );//define o IN1 como HIGH.
+    digitalWrite(IN2 , LOW );//define o IN2 como HIGH.
+    digitalWrite(STBY, HIGH);//desabilita o standby.
+
+    controleDeCorrente_TB6612FNG(PWM, HIGH);//define a corrente no PWM como maxima.
+}
+void desliga_TB6612FNG(uint8_t IN1, uint8_t IN2, uint8_t PWM, uint8_t STBY){
+    digitalWrite(IN1 , LOW );//define o IN1 como LOW.
+    digitalWrite(IN2 , LOW );//define o IN2 como LOW.
+    digitalWrite(STBY, LOW);//desabilita o standby.
+
+    controleDeCorrente_TB6612FNG(PWM, LOW);//define a corrente do PWM como minima.
+}
+void controleDeCorrente_TB6612FNG(uint8_t PWM, int corrente){
+    analogWrite(PWM, corrente);//define a corrente que saira para o motor; Conecte em um pino PWM.
+}
+void stby_TB6612FNG(uint8_t STBY, bool estado){
+    digitalWrite(STBY, estado ? HIGH : LOW);//desabilita/habilita o standby.
 }
 
 //Servo Motor____________________________________________________
@@ -214,4 +258,151 @@ void vaPara(uint8_t pinoControle, int angle){
             delayMicroseconds(tempo);
         }
    }
+}
+
+
+
+void inicia_7segmentos(uint8_t L1, uint8_t L2, uint8_t L3, uint8_t L4, uint8_t L5, uint8_t L6, uint8_t L7, uint8_t L8){
+    pinMode(L1, OUTPUT);
+    pinMode(L2, OUTPUT);
+    pinMode(L3, OUTPUT);
+    pinMode(L4, OUTPUT);
+    pinMode(L5, OUTPUT);
+    pinMode(L6, OUTPUT);
+    pinMode(L7, OUTPUT);
+    pinMode(L8, OUTPUT);
+
+    digitalWrite(L1, LOW);
+    digitalWrite(L2, LOW);
+    digitalWrite(L3, LOW);
+    digitalWrite(L4, LOW);
+    digitalWrite(L5, LOW);
+    digitalWrite(L6, LOW);
+    digitalWrite(L7, LOW);
+    digitalWrite(L8, LOW);
+}
+
+/*
+    [L1]
+[L6]    [L2]
+    [L7]
+[L5]    [L3]
+    [L4]
+  */
+
+void setNumber_7segmentos(int number, uint8_t L1, uint8_t L2, uint8_t L3, uint8_t L4, uint8_t L5, uint8_t L6, uint8_t L7){
+    switch(number){
+        case 0:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, HIGH);
+            digitalWrite(L6, HIGH);
+            digitalWrite(L7, LOW);
+        break;
+        case 1:
+            digitalWrite(L1, LOW);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, LOW);
+            digitalWrite(L5, LOW);
+            digitalWrite(L6, LOW);
+            digitalWrite(L7, LOW);
+        break;
+        case 2:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, LOW);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, HIGH);
+            digitalWrite(L6, LOW);
+            digitalWrite(L7, HIGH);
+        break;
+        case 3:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, LOW);
+            digitalWrite(L6, LOW);
+            digitalWrite(L7, HIGH);
+        break;
+        case 4:
+            digitalWrite(L1, LOW);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, LOW);
+            digitalWrite(L5, LOW);
+            digitalWrite(L6, HIGH);
+            digitalWrite(L7, HIGH);
+        break;
+        case 5:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, LOW);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, LOW);
+            digitalWrite(L6, HIGH);
+            digitalWrite(L7, HIGH);
+        break;
+        case 6:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, LOW);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, HIGH);
+            digitalWrite(L6, HIGH);
+            digitalWrite(L7, HIGH);
+        break;
+        case 7:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, LOW);
+            digitalWrite(L5, LOW);
+            digitalWrite(L6, LOW);
+            digitalWrite(L7, LOW);
+        break;
+        case 8:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, HIGH);
+            digitalWrite(L6, HIGH);
+            digitalWrite(L7, HIGH);
+        break;
+        case 9:
+            digitalWrite(L1, HIGH);
+            digitalWrite(L2, HIGH);
+            digitalWrite(L3, HIGH);
+            digitalWrite(L4, HIGH);
+            digitalWrite(L5, LOW);
+            digitalWrite(L6, HIGH);
+            digitalWrite(L7, HIGH);
+        break;
+    }
+}
+
+//L9110____________________________________________________________________________________________________________________________
+void iniciaL9110(uint8_t IN1A, uint8_t IN2A){
+    pinMode(IN1A, OUTPUT);
+    pinMode(IN2A, OUTPUT);
+}
+void sentido1_L9110(uint8_t IN1, uint8_t IN2, char PWM){
+    analogWrite(IN1, PWM);
+    analogWrite(IN2, LOW);
+}
+void sentido2_L9110(uint8_t IN1, uint8_t IN2, char PWM){
+    analogWrite(IN1, LOW);
+    analogWrite(IN2, PWM);
+}
+void trava_L9110(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, HIGH);
+}
+void desliga_L9110(uint8_t IN1, uint8_t IN2){
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
 }

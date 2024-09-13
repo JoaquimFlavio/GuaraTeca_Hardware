@@ -58,7 +58,7 @@ void PCF8574::estadoPino(uint8_t pino, bool estado){
 
 byte PCF8574::leitura(void){
   //Solicita 1Byte de dados do endereço informado
-  Wire.requestFrom(this->_endereco, 1);
+  Wire.requestFrom(this->_endereco, (uint8_t) 1);
 
   if (Wire.available()){
       byte r = Wire.read();
@@ -95,7 +95,7 @@ void leitura_DS1307(uint8_t endereco, int vet[7]){
   Wire.beginTransmission(endereco);
   Wire.write(0x00);
   Wire.endTransmission();
-  Wire.requestFrom(endereco, 7);
+  Wire.requestFrom(endereco, (uint8_t) 7);
   
   vet[0] = ConverteparaDecimal(Wire.read());
   vet[1] = ConverteparaDecimal(Wire.read());
